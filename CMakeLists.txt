@@ -13,7 +13,11 @@ set( POKERHAND_CMAKE_SOURCES
     hand.c
 )
 
-add_executable(${PROJECT_NAME} ${POKERHAND_CMAKE_SOURCES} )
+set( POKERHAND_CMAKE_HEADERS
+    hand.h
+)
+
+add_executable(${PROJECT_NAME} ${POKERHAND_CMAKE_SOURCES} ${POKERHAND_CMAKE_HEADERS} )
 
 if ( "${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" )
   add_definitions( --std=c11 )

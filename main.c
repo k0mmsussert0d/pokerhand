@@ -1,10 +1,7 @@
 #include <stdio.h>
-
-typedef struct Hand Hand;
-typedef enum { Win, Loss, Tie } Result;
+#include "hand.h"
 
 int main()
 {
-    printf("Hello World!\n");
     return 0;
 }
