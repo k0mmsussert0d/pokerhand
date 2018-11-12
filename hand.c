@@ -11,10 +11,6 @@ void sortByRank( Hand* );
 int suitCompare( const void*, const void* );
 int rankCompare( const void*, const void* );
 
-typedef struct Hand {
-    char Cards[ 5 ][ 3 ];
-} Hand;
-
 Hand* PokerHand( const char* hands ) {
     Hand* res = malloc( sizeof (Hand) );
     for( int i = 0, j = 0, k = 0; hands[ i ] != '\0'; ++i ) {
