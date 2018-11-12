@@ -3,6 +3,6 @@
 
 #include "hand.h"
 
-void sortBySuit( Hand* );
+int isFlush( Hand* );
 
 #endif // METHODS_H
