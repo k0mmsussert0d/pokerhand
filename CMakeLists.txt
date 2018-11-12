@@ -10,11 +10,13 @@ set(POKERHAND_CMAKE_VERSION_PATCH 0)
 
 set( POKERHAND_CMAKE_SOURCES
     main.c
+    methods.c
     hand.c
 )
 
 set( POKERHAND_CMAKE_HEADERS
     hand.h
+    methods.h
 )
 
 add_executable(${PROJECT_NAME} ${POKERHAND_CMAKE_SOURCES} ${POKERHAND_CMAKE_HEADERS} )
