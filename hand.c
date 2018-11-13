@@ -25,6 +25,7 @@ Hand* PokerHand( const char* hands ) {
         const char curr_suit = (char)toupper( hands[ i + 1 ] );
         if( !isCorrectRank( curr_rank ) || !isCorrectSuit( curr_suit ) ) {
             fprintf( stderr, "Error! %c%c is not correct card.", curr_rank, curr_suit );
+            exit( EXIT_FAILURE );
         } else {
             res->cards[ j ].rank = curr_rank;
             res->cards[ j ].suit = curr_suit;
