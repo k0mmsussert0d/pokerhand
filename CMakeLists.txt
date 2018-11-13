@@ -10,12 +10,14 @@ set(POKERHAND_CMAKE_VERSION_PATCH 0)
 
 set( POKERHAND_CMAKE_SOURCES
     main.c
+    macro.c
     methods.c
     hand.c
 )
 
 set( POKERHAND_CMAKE_HEADERS
     hand.h
+    macro.h
     methods.h
 )
 
