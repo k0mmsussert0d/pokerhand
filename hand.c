@@ -1,6 +1,9 @@
+#include <ctype.h>
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include "hand.h"
+#include "macro.h"
 
 #define SUIT_O "SHCD"
 #define VALUE_O "AKJT98765432"
@@ -13,61 +16,23 @@ int rankCompare( const void*, const void* );
 
 Hand* PokerHand( const char* hands ) {
     Hand* res = malloc( sizeof (Hand) );
-    for( int i = 0, j = 0, k = 0; hands[ i ] != '\0'; ++i ) {
+    for( int i = 0, j = 0; hands[ i ] != '\0' && j < 5; i += 2, ++j ) {
         if( hands[ i ] == ' ' ) {
-            res->Cards[ j ][ k ] = '\0';
-            ++j; k = 0;
-        } else {
-            res->Cards[ j ][ k++ ] = hands[ i ];
-        }
-        res->Cards[ j ][ k ] = '\0';
-    }
-    for( int i = 0; i < 5; ++i ) {
-        char* rank = &res->Cards[ i ][ 0 ];
-        if( *rank <= '9' && *rank >= '2' ) {
-            *rank -= '0';
-        } else {
-            switch( *rank ) {
-            case 'T':
-                *rank = 10;
-                break;
-            case 'J':
-                *rank = 11;
-                break;
-            case 'Q':
-                *rank = 12;
-                break;
-            case 'K':
-                *rank = 13;
-                break;
-            case 'A':
-                *rank = 14;
-                break;
-            default:
-                *rank = '?';
-                break;
-            }
+            ++i;
+        } else if( hands[ i ] == '\0' ) {
+            break;
         }
 
-        char* suit = &res->Cards[ i ][ 1 ];
-        switch( *suit ) {
-        case 'S':
-            *suit = 1;
-            break;
-        case 'H':
-            *suit = 2;
-            break;
-        case 'C':
-            *suit = 3;
-            break;
-        case 'D':
-            *suit = 4;
-            break;
-        default:
-            *suit = '?';
-            break;
+        const char curr_rank = (char)toupper( hands[ i ] );
+        const char curr_suit = (char)toupper( hands[ i + 1 ] );
+        if( !isCorrectRank( curr_rank ) || !isCorrectSuit( curr_suit ) ) {
+            fprintf( stderr, "Error! %c%c is not correct card.", curr_rank, curr_suit );
+        } else {
+            res->cards[ j ].rank = curr_rank;
+            res->cards[ j ].suit = curr_suit;
         }
     }
+
     HandSort( res );
     return res;
 }

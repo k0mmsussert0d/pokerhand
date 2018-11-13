@@ -1,9 +1,15 @@
 #ifndef HAND_H
 #define HAND_H
 
+typedef struct Card {
+    char suit;
+    char rank;
+} Card;
+
 typedef struct Hand {
-    char Cards[ 5 ][ 3 ];
+    Card cards[ 5 ];
 } Hand;
+
 typedef enum { Win, Loss, Tie } Result;
 
 Hand* PokerHand( const char* );
