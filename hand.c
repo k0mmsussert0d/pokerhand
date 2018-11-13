@@ -19,8 +19,6 @@ Hand* PokerHand( const char* hands ) {
     for( int i = 0, j = 0; hands[ i ] != '\0' && j < 5; i += 2, ++j ) {
         if( hands[ i ] == ' ' ) {
             ++i;
-        } else if( hands[ i ] == '\0' ) {
-            break;
         }
 
         const char curr_rank = (char)toupper( hands[ i ] );
