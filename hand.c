@@ -11,6 +11,7 @@
 void HandSort( Hand* );
 void sortBySuit( Hand* );
 void sortByRank( Hand* );
+void sortHandBy( Hand*, int(*)( const void*, const void* ) );
 int suitCompare( const void*, const void* );
 int rankCompare( const void*, const void* );
 
@@ -21,8 +22,8 @@ Hand* PokerHand( const char* hands ) {
             ++i;
         }
 
-        const char curr_rank = (char)toupper( hands[ i ] );
-        const char curr_suit = (char)toupper( hands[ i + 1 ] );
+        const char curr_suit = (char)toupper( hands[ i ] );
+        const char curr_rank = (char)toupper( hands[ i + 1 ] );
         if( !isCorrectRank( curr_rank ) || !isCorrectSuit( curr_suit ) ) {
             fprintf( stderr, "Error! %c%c is not correct card.", curr_rank, curr_suit );
             exit( EXIT_FAILURE );
@@ -41,42 +42,23 @@ Result compare( Hand* player, Hand* opponent ) {
 }
 
 void HandSort( Hand* hand ) {
-    sortBySuit( hand );
-    sortByRank( hand );
+    sortHandBy( hand, suitCompare );
 }
 
-void sortBySuit( Hand* hand ) {
-    qsort( hand->Cards, 5, 3, suitCompare );
-}
-
-void sortByRank( Hand* hand ) {
-    char* pos = hand->Cards[ 0 ];
-    size_t count = 0;
-    for( int i = 1; i < 5; ++i ) {
-        char* current = hand->Cards[ i ];
-        char* previous = hand->Cards[ i - 1 ];
-        if( current[ 1 ] != previous[ 1 ] ) {
-            if( count ) {
-                qsort( pos, count + 1, 3, rankCompare );
-            }
-            count = 0;
-            pos = hand->Cards[ i + 1 ];
-        } else {
-            ++count;
-        }
-    }
+void sortHandBy( Hand* hand, int (*comp)( const void*, const void* ) ) {
+    qsort( hand->cards, sizeof(hand->cards), sizeof(hand->cards[ 0 ]), *comp );
 }
 
 int suitCompare( const void* s1, const void* s2 ) {
-    const char* arg1 = (const char*)s1;
-    const char* arg2 = (const char*)s2;
+    const Card* card1 = (const Card*)s1;
+    const Card* card2 = (const Card*)s2;
 
-    return arg1[ 1 ] - arg2[ 1 ];
+    return card1->suit - card2->suit;
 }
 
 int rankCompare( const void* s1, const void* s2 ) {
-    const char* arg1 = (const char*)s1;
-    const char* arg2 = (const char*)s2;
+    const Card* card1 = (const Card*)s1;
+    const Card* card2 = (const Card*)s2;
 
-    return -( arg1[ 0 ] - arg2[ 0 ] );
+    return card1->rank - card2->rank;
 }
