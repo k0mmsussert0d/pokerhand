@@ -2,25 +2,36 @@
 #include <string.h>
 #include "macro.h"
 
-int isCorrectRank( const char rank ) {
-    const char allRanks[] = "SHCD";
+int isCorrectSuit( char* suit ) {
+    const char allSuits[] = "SHCD";
 
-    if( !isupper( rank ) ) {
-        return 0;
-    } else if( strchr( allRanks, rank ) == NULL ) {
+    if( !isupper( *suit ) ) {
         return 0;
     }
 
-    return 1;
+    for( int i = 0; allSuits[ i ] != '\0'; ++i ) {
+        if( *suit == allSuits[ i ] ) {
+            *suit = (char)(i + 1);
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
-int isCorrectSuit( const char suit ) {
-    const char allCharSuits[] = "TJQKA";
+int isCorrectRank( char* rank ) {
+    const char allRanks[] = "TJQKA";
 
-    if( suit >= '2' && suit <= '9' ) {
+    if( *rank >= '2' && *rank <= '9' ) {
+        *rank -= '0';
         return 1;
-    } else if( strchr( allCharSuits, suit ) != NULL ) {
-        return 1;
+    }
+
+    for( int i = 0; allRanks[ i ] != '\0'; ++i ) {
+        if( *rank == allRanks[ i ] ) {
+            *rank = (char)(i + 10);
+            return 1;
+        }
     }
 
     return 0;

@@ -22,9 +22,9 @@ Hand* PokerHand( const char* hands ) {
             ++i;
         }
 
-        const char curr_suit = (char)toupper( hands[ i ] );
-        const char curr_rank = (char)toupper( hands[ i + 1 ] );
-        if( !isCorrectRank( curr_rank ) || !isCorrectSuit( curr_suit ) ) {
+        char curr_rank = (char)toupper( hands[ i ] );
+        char curr_suit = (char)toupper( hands[ i + 1 ] );
+        if( !isCorrectRank( &curr_rank ) || !isCorrectSuit( &curr_suit ) ) {
             fprintf( stderr, "Error! %c%c is not correct card.", curr_rank, curr_suit );
             exit( EXIT_FAILURE );
         } else {
@@ -46,7 +46,8 @@ void HandSort( Hand* hand ) {
 }
 
 void sortHandBy( Hand* hand, int (*comp)( const void*, const void* ) ) {
-    qsort( hand->cards, sizeof(hand->cards), sizeof(hand->cards[ 0 ]), *comp );
+    size_t oneCardSize = sizeof(hand->cards[ 0 ]);
+    qsort( hand->cards, sizeof(hand->cards)/oneCardSize, oneCardSize, *comp );
 }
 
 int suitCompare( const void* s1, const void* s2 ) {
