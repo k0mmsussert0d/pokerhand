@@ -3,7 +3,7 @@
 #include "macro.h"
 
 int isCorrectSuit( char* suit ) {
-    const char allSuits[] = "SHCD";
+    const char allSuits[] = "DCHS";
 
     if( !isupper( *suit ) ) {
         return 0;
