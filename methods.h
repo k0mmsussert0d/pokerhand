@@ -4,5 +4,6 @@
 #include "hand.h"
 
 int isFlush( Hand* );
+int isStraight( Hand* );
 
 #endif // METHODS_H
