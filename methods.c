@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include "methods.h"
-/*
+
 int isFlush( Hand* hand ) {
-    if( hand->Cards[ 0 ][ 1 ] == hand->Cards[ 4 ][ 1 ] ) {
+    if( hand->cards[ 0 ].suit == hand->cards[ 4 ].suit ) {  // all cards have same suit
         return 1;
     }
 
     return 0;
 }
-*/
+
