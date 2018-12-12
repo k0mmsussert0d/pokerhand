@@ -24,6 +24,8 @@ int isStraight( Hand* hand ) {
             hand->cards[ 4 ].rank == 2 ) {
                 return 1;
         }
+
+        return 0;
     }
 
     char prevRank = hand->cards[ 0 ].rank;
