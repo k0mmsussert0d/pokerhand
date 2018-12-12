@@ -49,6 +49,35 @@ int isRoyalFlush( Hand* hand ) {
     return isStraightFlush( hand ) && highestCard( hand ) == A;
 }
 
+int isFourOfAKind( Hand* hand ) {
+    int z = hand->cards[ 1 ].rank == hand->cards[ 2 ].rank &&
+            hand->cards[ 2 ].rank == hand->cards[ 3 ].rank;
+    int a = hand->cards[ 0 ].rank == hand->cards[ 1 ].rank;
+    int b = hand->cards[ 3 ].rank == hand->cards[ 4 ].rank;
+
+    return ( a || b ) && z;
+}
+
+int isFullHouse( Hand* hand ) {
+    int a = hand->cards[ 0 ].rank == hand->cards[ 1 ].rank &&
+            hand->cards[ 2 ].rank == hand->cards[ 3 ].rank &&
+            hand->cards[ 3 ].rank == hand->cards[ 4 ].rank;
+    int b = hand->cards[ 0 ].rank == hand->cards[ 1 ].rank &&
+            hand->cards[ 1 ].rank == hand->cards[ 2 ].rank &&
+            hand->cards[ 3 ].rank == hand->cards[ 4 ].rank;
+
+    return a || b;
+}
+
+int isThreeOfAKind( Hand* hand ) {
+    int z = hand->cards[ 1 ].rank == hand->cards[ 3 ].rank;
+
+    int a = hand->cards[ 0 ].rank == hand->cards[ 1 ].rank;
+    int b = hand->cards[ 4 ].rank == hand->cards[ 3 ].rank;
+
+    return ( a || b ) && z;
+}
+
 
 char highestCard( Hand* hand ) {
     return hand->cards[ 0 ].rank;

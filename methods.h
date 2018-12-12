@@ -7,6 +7,7 @@ int isFlush( Hand* );
 int isStraight( Hand* );
 int isStraightFulsh( Hand* );
 int isRoyalFlush( Hand* );
+int isFourOfAKind( Hand* );
 
 char highestCard( Hand* );
 
