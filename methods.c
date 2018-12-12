@@ -11,7 +11,7 @@ int isFlush( Hand* hand ) {
 }
 
 int isStraight( Hand* hand ) {
-    if( hand->cards[ 0 ].rank == A ) {
+    if( highestCard( hand ) == A ) {
         if( hand->cards[ 1 ].rank == K && // checking for A-high straight
             hand->cards[ 2 ].rank == Q &&
             hand->cards[ 3 ].rank == J &&
