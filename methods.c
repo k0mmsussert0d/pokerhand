@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "macro.h"
 #include "methods.h"
 
 int isFlush( Hand* hand ) {
@@ -38,4 +39,17 @@ int isStraight( Hand* hand ) {
     }
 
     return 1;
+}
+
+int isStraightFlush( Hand* hand ) {
+    return isFlush( hand ) && isStraight( hand );
+}
+
+int isRoyalFlush( Hand* hand ) {
+    return isStraightFlush( hand ) && highestCard( hand ) == A;
+}
+
+
+char highestCard( Hand* hand ) {
+    return hand->cards[ 0 ].rank;
 }
