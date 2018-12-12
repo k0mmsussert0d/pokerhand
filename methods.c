@@ -2,6 +2,10 @@
 #include "macro.h"
 #include "methods.h"
 
+int isPair( Hand* hand, size_t firstPos, size_t secondPos ) {
+    return hand->cards[ firstPos ].rank == hand->cards[ secondPos ].rank;
+}
+
 int isFlush( Hand* hand ) {
     if( hand->cards[ 0 ].suit == hand->cards[ 4 ].suit ) {  // all cards have same suit
         return 1;
@@ -50,10 +54,10 @@ int isRoyalFlush( Hand* hand ) {
 }
 
 int isFourOfAKind( Hand* hand ) {
-    int z = hand->cards[ 1 ].rank == hand->cards[ 2 ].rank &&
-            hand->cards[ 2 ].rank == hand->cards[ 3 ].rank;
-    int a = hand->cards[ 0 ].rank == hand->cards[ 1 ].rank;
-    int b = hand->cards[ 3 ].rank == hand->cards[ 4 ].rank;
+    int z = isPair( hand, 1, 2 ) && isPair( hand, 2, 3 );
+
+    int a = isPair( hand, 0, 1 );
+    int b = isPair( hand, 3, 4 );
 
     return ( a || b ) && z;
 }
