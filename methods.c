@@ -2,11 +2,29 @@
 #include "macro.h"
 #include "methods.h"
 
-int isPair( Hand* hand, size_t firstPos, size_t secondPos ) {
-    return hand->cards[ firstPos ].rank == hand->cards[ secondPos ].rank;
+#define TRUE 1
+#define FALSE 0
+
+int isPair( const Hand* hand, size_t a, size_t b ) {
+    return hand->cards[ a ].rank == hand->cards[ b ].rank;
 }
 
-int isFlush( Hand* hand ) {
+int areSameRanks( const Hand* hand, size_t start, size_t end ) {
+    if( start == end ) {
+        return TRUE;
+    } else if( start == end - 1 ) {
+        return isPair( hand, start, end );
+    }
+
+    char prevRank = hand->cards[ start ].rank;
+    for( size_t i = start + 1; i <= end; ++i ) {
+        if( hand->cards[ i ].rank != prevRank ) {
+            return FALSE;
+        }
+    }
+}
+
+int isFlush( const Hand* hand ) {
     if( hand->cards[ 0 ].suit == hand->cards[ 4 ].suit ) {  // all cards have same suit
         return 1;
     }
@@ -14,7 +32,7 @@ int isFlush( Hand* hand ) {
     return 0;
 }
 
-int isStraight( Hand* hand ) {
+int isStraight( const Hand* hand ) {
     if( highestCard( hand ) == A ) {
         if( hand->cards[ 1 ].rank == K && // checking for A-high straight
             hand->cards[ 2 ].rank == Q &&
@@ -45,15 +63,15 @@ int isStraight( Hand* hand ) {
     return 1;
 }
 
-int isStraightFlush( Hand* hand ) {
+int isStraightFlush( const Hand* hand ) {
     return isFlush( hand ) && isStraight( hand );
 }
 
-int isRoyalFlush( Hand* hand ) {
+int isRoyalFlush( const Hand* hand ) {
     return isStraightFlush( hand ) && highestCard( hand ) == A;
 }
 
-int isFourOfAKind( Hand* hand ) {
+int isFourOfAKind( const Hand* hand ) {
     int z = isPair( hand, 1, 2 ) && isPair( hand, 2, 3 );
 
     int a = isPair( hand, 0, 1 );
@@ -73,16 +91,21 @@ int isFullHouse( Hand* hand ) {
     return a || b;
 }
 
-int isThreeOfAKind( Hand* hand ) {
-    int z = hand->cards[ 1 ].rank == hand->cards[ 3 ].rank;
-
-    int a = hand->cards[ 0 ].rank == hand->cards[ 1 ].rank;
-    int b = hand->cards[ 4 ].rank == hand->cards[ 3 ].rank;
-
-    return ( a || b ) && z;
+int isThreeOfAKind( const Hand* hand ) {
+    if( isPair( hand, 1, 2 ) ) {
+        if( isPair( hand, 0, 1 ) ) {
+            return TRUE;
+        } else if( isPair( hand, 2, 3 ) ) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    } else {
+        return FALSE;
+    }
 }
 
 
-char highestCard( Hand* hand ) {
+char highestCard( const Hand* hand ) {
     return hand->cards[ 0 ].rank;
 }

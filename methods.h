@@ -3,12 +3,12 @@
 
 #include "hand.h"
 
-int isFlush( Hand* );
-int isStraight( Hand* );
-int isStraightFulsh( Hand* );
-int isRoyalFlush( Hand* );
-int isFourOfAKind( Hand* );
+int isFlush( const Hand* );
+int isStraight( const Hand* );
+int isStraightFulsh( const Hand* );
+int isRoyalFlush( const Hand* );
+int isFourOfAKind( const Hand* );
 
-char highestCard( Hand* );
+char highestCard( const Hand* );
 
 #endif // METHODS_H
