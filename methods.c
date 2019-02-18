@@ -105,6 +105,26 @@ int isThreeOfAKind( const Hand* hand ) {
     }
 }
 
+int is2Pairs( const Hand* hand ) {
+    if( isPair( hand, 0, 1 ) ) {
+        if( isPair( hand, 2, 3 ) ) {
+            return TRUE;
+        } else if( isPair( hand, 3, 4 ) ) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    } else if( isPair( hand, 1, 2 ) ) {
+        if( isPair( hand, 3, 4 ) ) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    } else {
+        return FALSE;
+    }
+}
+
 
 char highestCard( const Hand* hand ) {
     return hand->cards[ 0 ].rank;
